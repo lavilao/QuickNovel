@@ -76,7 +76,7 @@ class SkyNovelsProvider : MainAPI() {
     }
 
     private fun parseIdFromUrl(url: String): Long? {
-        val regex = "/novelas/(\\d+)/".toRegex()
+        val regex = "/novelas/(\\d+)".toRegex()
         val match = regex.find(url) ?: return null
         return match.groupValues.getOrNull(1)?.toLongOrNull()
     }
