@@ -32,6 +32,7 @@ import com.lagradost.quicknovel.providers.RoyalRoadProvider
 import com.lagradost.quicknovel.providers.SakuraNovelProvider
 import com.lagradost.quicknovel.providers.ScribblehubProvider
 import com.lagradost.quicknovel.providers.WtrLabProvider
+import com.lagradost.quicknovel.providers.SkyNovelsProvider
 import com.lagradost.quicknovel.util.Coroutines.ioSafe
 
 class Apis {
@@ -77,7 +78,8 @@ class Apis {
             SakuraNovelProvider(), // cloudflare?
             // WattpadProvider(), // they have randomized the css classes
             WtrLabProvider(),
-            PawReadProver()
+            PawReadProver(),
+            SkyNovelsProvider(),
         ).sortedBy { it.name }
 
         fun getApiFromName(name: String): APIRepository {
