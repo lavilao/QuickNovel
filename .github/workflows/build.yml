@@ -49,7 +49,7 @@ jobs:
           cd app/build/outputs/apk/release
           mv app-release-unsigned.apk QuickNovel.apk
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: QuickNovel
           path: app/build/outputs/apk/release/QuickNovel.apk
