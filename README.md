@@ -29,6 +29,7 @@ Adfree FOSS Android app for downloading novels. It also functions as an Epub rea
 - https://sakuranovel.id
 - https://www.scribblehub.com
 - https://wtr-lab.com
+- https://skynovels.net
 
 **Screenshoots:**
 
