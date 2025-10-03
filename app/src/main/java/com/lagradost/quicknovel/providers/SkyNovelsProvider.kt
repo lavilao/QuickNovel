@@ -122,7 +122,7 @@ class SkyNovelsProvider : MainAPI() {
     override suspend fun load(url: String): LoadResponse? {
         val id = parseIdFromUrl(url) ?: return null
         val novel = fetchNovel(id) ?: return null
-        val chapters = try { fetchChapters(id, novel.slug) } catch (_: Throwable) { emptyList() }
+        val chapters = fetchChapters(id, novel.slug)
 
         return newStreamResponse(
             name = novel.title ?: (novel.slug ?: "Novel $id"),
