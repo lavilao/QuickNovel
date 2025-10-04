@@ -1,0 +1,44 @@
+name: Release APK
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build app
+        run: ./gradlew --no-daemon assembleRelease
+
+      - name: Prepare APK
+        run: |
+          cd app/build/outputs/apk/release
+          if [ -f app-release-unsigned.apk ]; then mv app-release-unsigned.apk QuickNovel.apk; 
+          elif [ -f app-release.apk ]; then mv app-release.apk QuickNovel.apk; 
+          else echo "No release APK found" && ls -al && exit 1; fi
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: app/build/outputs/apk/release/QuickNovel.apk
