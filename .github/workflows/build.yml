@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - '*'
+    tags:
+      - 'v*'
 
 concurrency:
   group: build-${{ github.ref }}
@@ -55,3 +57,21 @@ jobs:
         with:
           name: QuickNovel
           path: app/build/outputs/apk/release/QuickNovel.apk
+
+  release:
+    name: Release app
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download APK
+        uses: actions/download-artifact@v4
+        with:
+          name: QuickNovel
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: QuickNovel.apk
+          fail_on_unmatched_files: true
